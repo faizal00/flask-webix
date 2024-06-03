@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <link rel="stylesheet" href="https://cdn.webix.com/edge/webix.css" type="text/css"> 
+  <script src="https://cdn.webix.com/edge/webix.js" type="text/javascript"></script>  
+ </head>
+ <body>
+   <script type="text/javascript" charset="utf-8">
+    webix.ui({
+        view:"form", 
+        id:"myform",
+        elements:[
+            { view:"text", label:"Email", name:"email"},
+            { view:"text", type:"password", label:"Password", name:"password"},
+            { cols:[
+                { view:"button", value:"Login" , css:"webix_primary",
+                on:{
+                    onItemClick(id,event){
+                        var values = $$("myform").getValues();
+                        webix.ajax().post("/send-data", values).then(function(data){
+                            console.log(data)
+                        })
+                    }
+                }
+            },
+                { view:"button", value:"Cancel"}
+            ]}
+        ]
+    });
+   </script>
+ </body>
+</html>
